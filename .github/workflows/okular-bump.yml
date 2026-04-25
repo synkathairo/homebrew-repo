@@ -1,0 +1,59 @@
+name: okular-bump
+
+on:
+  schedule:
+    - cron: "0 6 * * *"   # daily
+  workflow_dispatch:
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get latest Okular nightly version
+        id: latest
+        run: |
+          URL="https://cdn.kde.org/ci-builds/graphics/okular/master/macos-arm64/"
+
+          LATEST=$(curl -fsSL "$URL" \
+            | grep -Eo 'href="okular-master-[0-9]+-macos-clang-arm64\.dmg"' \
+            | cut -d'"' -f2 \
+            | sed -E 's/okular-master-([0-9]+)-.*/\1/' \
+            | sort -n \
+            | tail -1)
+
+          if [ -z "$LATEST" ]; then
+            echo "Failed to detect latest version"
+            exit 1
+          fi
+
+          echo "latest=$LATEST"
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+
+      - name: Update cask if needed
+        run: |
+          FILE="Casks/okular-nightly.rb"
+
+          CURRENT=$(grep -E '^  version "' "$FILE" | cut -d'"' -f2)
+
+          if [ "${{ steps.latest.outputs.latest }}" != "$CURRENT" ]; then
+            echo "Updating: $CURRENT -> ${{ steps.latest.outputs.latest }}"
+
+            sed -i "s/^  version \".*\"/  version \"${{ steps.latest.outputs.latest }}\"/" "$FILE"
+
+            echo "changed=true" >> "$GITHUB_ENV"
+          else
+            echo "No update needed"
+          fi
+
+      - name: Commit and push
+        if: env.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add Casks/okular-nightly.rb
+          git commit -m "okular-nightly ${{ steps.latest.outputs.latest }}"
+          git push
