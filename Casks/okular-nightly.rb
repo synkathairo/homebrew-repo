@@ -6,7 +6,7 @@ cask "okular-nightly" do
 
   url "https://cdn.kde.org/ci-builds/graphics/okular/master/macos-#{arch}/okular-master-#{version}-macos-clang-#{arch}.dmg"
   name "Okular Nightly"
-  desc "KDE;s Universal Document Viewer"
+  desc "KDE's Universal Document Viewer"
   homepage "https://okular.kde.org/"
 
   livecheck do
