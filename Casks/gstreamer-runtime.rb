@@ -12,8 +12,6 @@ cask "gstreamer-runtime" do
     regex(/gstreamer[._-]1\.0[._-]v?(\d+(?:\.\d+)+)[._-]universal\.pkg/i)
   end
 
-  disable! date: "2026-09-01", because: :fails_gatekeeper_check
-
   depends_on :macos
 
   pkg "gstreamer-1.0-#{version}-universal.pkg"
