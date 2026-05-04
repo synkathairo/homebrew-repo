@@ -2,7 +2,7 @@
 
 some useful software for macOS
 
-includes some casks which will be disabled in the main repo (no Gatekeeper signature)
+includes some casks which will be disabled in the [main Cask repo](https://github.com/Homebrew/homebrew-cask) (no Gatekeeper signature)
 
 ## Notes
 

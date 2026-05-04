@@ -41,6 +41,7 @@ jobs:
           HOMEBREW_GIT_COMMITTER_NAME: github-actions[bot]
           HOMEBREW_GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
           CASKS: ${{ inputs.casks }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # BREW_BUMP=(brew bump --no-fork --open-pr --casks)
           BREW_BUMP=(brew bump-cask-pr --write-only --commit --no-audit --no-style)
@@ -54,4 +55,4 @@ jobs:
               done
           fi
 
-          git push
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" "HEAD:${GITHUB_REF_NAME}"
