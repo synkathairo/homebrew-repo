@@ -1,12 +1,12 @@
 name: okular-bump
 
 on:
-  schedule:
-    - cron: "0 6 * * *"   # daily
+  # Disabled in favor of autobump.yml, which can bump okular-nightly from its
+  # livecheck block alongside the rest of the tap.
   workflow_dispatch:
 
 permissions:
-  contents: write 
+  contents: write
 
 jobs:
   bump:
