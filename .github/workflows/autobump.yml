@@ -1,4 +1,4 @@
-name: Bump casks on schedule or request
+name: Bump casks (using macos runner)
 
 on:
   workflow_dispatch:
@@ -6,9 +6,9 @@ on:
       casks:
         description: Custom list of casks to livecheck and bump if outdated
         required: false
-  schedule:
-    # - cron: "23 */3 * * *"
-    - cron: "0 6 * * *" # daily
+  # schedule:
+  #   # - cron: "23 */3 * * *"
+  #   - cron: "0 6 * * *" # daily
 
 permissions:
   contents: write
