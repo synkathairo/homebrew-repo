@@ -4,6 +4,7 @@ class Lrzip < Formula
   url "https://github.com/ckolivas/lrzip/archive/refs/tags/v0.651.tar.gz"
   sha256 "f4c84de778a059123040681fd47c17565fcc4fec0ccc68fcf32d97fad16cd892"
   license "GPL-2.0-or-later"
+  revision 1
 
   livecheck do
     url :homepage
@@ -24,31 +25,11 @@ class Lrzip < Formula
     depends_on "zlib-ng-compat"
   end
 
-  on_intel do
-    depends_on "nasm" => :build
-  end
-
   conflicts_with "lrzsz", because: "both install `lrz` binaries"
 
   # Fix decompression on macOS by initializing control_lock before runzip uses it.
-  # TODO: Remove in the next release.
-  patch do
-    <<~PATCH
-      diff --git a/runzip.c b/runzip.c
-      index 2806c15..31d9a72 100644
-      --- a/runzip.c
-      +++ b/runzip.c
-      @@ -381,6 +381,8 @@ i64 runzip_fd(rzip_control *control, int fd_in, int fd_hist, i64 expected_size)
-       	i64 total = 0, u;
-       	double tdiff;
-
-      +	init_mutex(control, &control->control_lock);
-      +
-       	if (!NO_MD5)
-       		md5_init_ctx (&control->ctx);
-       	gettimeofday(&start,NULL);
-    PATCH
-  end
+  # Remove when included in a release.
+  patch :DATA
 
   def install
     # Attempting to build the ASM/x86 folder as a compilation unit fails (even on Intel). Removing this compilation
@@ -61,10 +42,7 @@ class Lrzip < Formula
 
     system "autoreconf", "--force", "--install", "--verbose"
 
-    args = []
-    args << "--disable-asm" unless Hardware::CPU.intel?
-
-    system "./configure", *args, *std_configure_args
+    system "./configure", "--disable-asm", *std_configure_args
     system "make", "SHELL=bash"
     system "make", "install"
   end
@@ -83,3 +61,18 @@ class Lrzip < Formula
     assert_equal original_contents, path.read
   end
 end
+
+__END__
+diff --git a/runzip.c b/runzip.c
+index 2806c15..31d9a72 100644
+--- a/runzip.c
++++ b/runzip.c
+@@ -381,6 +381,8 @@ i64 runzip_fd(rzip_control *control, int fd_in, int fd_hist, i64 expected_size)
+ 	i64 total = 0, u;
+ 	double tdiff;
+ 
++	init_mutex(control, &control->control_lock);
++
+ 	if (!NO_MD5)
+ 		md5_init_ctx (&control->ctx);
+ 	gettimeofday(&start,NULL);
