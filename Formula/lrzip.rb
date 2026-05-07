@@ -30,6 +30,26 @@ class Lrzip < Formula
 
   conflicts_with "lrzsz", because: "both install `lrz` binaries"
 
+  # Fix decompression on macOS by initializing control_lock before runzip uses it.
+  # TODO: Remove in the next release.
+  patch do
+    <<~PATCH
+      diff --git a/runzip.c b/runzip.c
+      index 2806c15..31d9a72 100644
+      --- a/runzip.c
+      +++ b/runzip.c
+      @@ -381,6 +381,8 @@ i64 runzip_fd(rzip_control *control, int fd_in, int fd_hist, i64 expected_size)
+       	i64 total = 0, u;
+       	double tdiff;
+
+      +	init_mutex(control, &control->control_lock);
+      +
+       	if (!NO_MD5)
+       		md5_init_ctx (&control->ctx);
+       	gettimeofday(&start,NULL);
+    PATCH
+  end
+
   def install
     # Attempting to build the ASM/x86 folder as a compilation unit fails (even on Intel). Removing this compilation
     # unit doesn't disable ASM usage though, since ASM is still included in the C build process.
