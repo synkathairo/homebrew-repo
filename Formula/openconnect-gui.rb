@@ -1,25 +1,26 @@
 class OpenconnectGui < Formula
   desc "Graphical OpenConnect client"
   homepage "https://openconnect.github.io/openconnect-gui/"
-  license "LGPL-2.1-or-later"
-
   url "https://gitlab.com/openconnect/openconnect-gui/-/archive/v1.6.2/openconnect-gui-v1.6.2.tar.gz"
   sha256 "a83b913dcbf65d17e32282debe4f3b09a71aa3ced3d990af67a4b95ecae7649b"
-
-  depends_on "cmake" => :build
-
-  depends_on "fmt"
-  depends_on "spdlog"
-  depends_on "openconnect"
-  depends_on "qt"
-  depends_on "qtscxml"
+  license "LGPL-2.1-or-later"
 
   livecheck do
     url "https://gitlab.com/openconnect/openconnect-gui/-/tags"
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  depends_on "cmake" => :build
+
+  depends_on "fmt"
+  depends_on "openconnect"
+  depends_on "qt"
+  depends_on "qtscxml"
+  depends_on "spdlog"
+
   def install
+    ENV.deparallelize
+
     system "cmake",
            "-B", "build",
            "-DCMAKE_BUILD_TYPE=Release",
@@ -35,6 +36,6 @@ class OpenconnectGui < Formula
   end
 
   test do
-    assert_predicate prefix/"OpenConnect-GUI.app", :exist?
+    assert_path_exists prefix/"OpenConnect-GUI.app"
   end
 end
