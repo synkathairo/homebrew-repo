@@ -1,0 +1,26 @@
+name: Bump All Tap Formulas
+
+on:
+  schedule:
+    - cron: "0 6 * * *" # daily
+  workflow_dispatch: # Allows you to trigger this manually from the Actions tab
+
+jobs:
+  bump-taps:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check and bump all formulas
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          # Required: A Personal Access Token (PAT) with `public_repo` scope
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+          
+          # Tell the action to look at your tap
+          tap: synkathairo/repo
+          
+          # Enable livecheck mode to sweep the entire repository
+          livecheck: true
+          
+          # Optional: Force a direct push to main if versions are outdated.
+          # If false, it will cleanly open individual Pull Requests for each formula.
+          force: false
