@@ -3,12 +3,11 @@ class OpenconnectGui < Formula
   homepage "https://openconnect.github.io/openconnect-gui/"
   license "LGPL-2.1-or-later"
 
-  head "https://gitlab.com/openconnect/openconnect-gui.git",
-       branch: "develop"
+  url "https://gitlab.com/openconnect/openconnect-gui/-/archive/v1.6.2/openconnect-gui-v1.6.2.tar.gz"
+  sha256 "a83b913dcbf65d17e32282debe4f3b09a71aa3ced3d990af67a4b95ecae7649b"
 
   depends_on "cmake" => :build
 
-  depends_on "llvm"
   depends_on "fmt"
   depends_on "spdlog"
   depends_on "openconnect"
@@ -32,7 +31,7 @@ class OpenconnectGui < Formula
   end
 
   def post_install
-    appdir.install_symlink prefix/"OpenConnect-GUI.app"
+    appdir.install_symlink opt_prefix/"OpenConnect-GUI.app"
   end
 
   test do
