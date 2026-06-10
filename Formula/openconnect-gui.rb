@@ -32,7 +32,9 @@ class OpenconnectGui < Formula
   end
 
   def post_install
-    appdir.install_symlink opt_prefix/"OpenConnect-GUI.app"
+    app = Pathname("/Applications/OpenConnect-GUI.app")
+    app.delete if app.symlink?
+    app.make_symlink(opt_prefix/"OpenConnect-GUI.app")
   end
 
   test do
