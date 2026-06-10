@@ -23,4 +23,7 @@ jobs:
           
           # Optional: Force a direct push to main if versions are outdated.
           # If false, it will cleanly open individual Pull Requests for each formula.
-          force: false
+          force: true
+
+          git_name: "github-actions[bot]"
+          git_email: "41898282+github-actions[bot]@users.noreply.github.com"
