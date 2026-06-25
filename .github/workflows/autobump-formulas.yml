@@ -12,6 +12,8 @@ permissions:
 jobs:
   bump-taps:
     runs-on: ubuntu-latest
+    env:
+      HOMEBREW_SIMULATE_MACOS_ON_LINUX: 1
     steps:
       - name: Check and bump all formulas
         uses: dawidd6/action-homebrew-bump-formula@v3
