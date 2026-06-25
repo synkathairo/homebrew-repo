@@ -17,7 +17,7 @@ class OpenconnectGui < Formula
   depends_on "fmt"
   depends_on macos: :catalina
   depends_on "openconnect"
-  depends_on "qt"
+  depends_on "qtbase"
   depends_on "qtscxml"
   depends_on "spdlog"
 
