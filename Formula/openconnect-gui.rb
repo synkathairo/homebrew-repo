@@ -30,6 +30,13 @@ class OpenconnectGui < Formula
     # it consistent before using the upstream install target.
     inreplace "src/CMakeLists.txt", "${PROJECT_NAME}.app", "${PRODUCT_NAME_SHORT}.app"
 
+    # Homebrew formulae should use Homebrew-managed shared libraries rather than
+    # copying dependencies into the .app. Upstream's fixup_bundle currently also
+    # misidentifies Qt framework headers as Mach-O files with Homebrew's Qt.
+    inreplace "src/CMakeLists.txt",
+              "fixup_bundle(\"${APPS}\" \"${additionalLib}\" \"${libSearchDirs}\")",
+              "message(STATUS \"Skipping fixup_bundle for Homebrew\")"
+
     system "cmake",
            "-S", ".",
            "-B", "build",
