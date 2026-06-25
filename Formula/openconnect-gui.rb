@@ -4,6 +4,7 @@ class OpenconnectGui < Formula
   url "https://gitlab.com/openconnect/openconnect-gui/-/archive/v1.6.2/openconnect-gui-v1.6.2.tar.gz"
   sha256 "a83b913dcbf65d17e32282debe4f3b09a71aa3ced3d990af67a4b95ecae7649b"
   license "LGPL-2.1-or-later"
+  head "https://gitlab.com/openconnect/openconnect-gui.git", branch: "main"
 
   livecheck do
     url "https://gitlab.com/openconnect/openconnect-gui/-/tags"
@@ -38,6 +39,19 @@ class OpenconnectGui < Formula
 
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
+  end
+
+  def caveats
+    <<~EOS
+      OpenConnect-GUI.app was installed to:
+        #{opt_prefix}/OpenConnect-GUI.app
+
+      To launch it, run:
+        open #{opt_prefix}/OpenConnect-GUI.app
+
+      To make it appear in /Applications, run:
+        ln -s #{opt_prefix}/OpenConnect-GUI.app /Applications/OpenConnect-GUI.app
+    EOS
   end
 
   test do
