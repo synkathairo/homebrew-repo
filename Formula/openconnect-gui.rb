@@ -34,7 +34,7 @@ class OpenconnectGui < Formula
     # copying dependencies into the .app. Upstream's fixup_bundle currently also
     # misidentifies Qt framework headers as Mach-O files with Homebrew's Qt.
     inreplace "src/CMakeLists.txt",
-              "fixup_bundle(\"${APPS}\" \"${additionalLib}\" \"${libSearchDirs}\")",
+              'fixup_bundle(\"${APPS}\" \"${additionalLib}\" \"${libSearchDirs}\")',
               "message(STATUS \"Skipping fixup_bundle for Homebrew\")"
 
     system "cmake",
