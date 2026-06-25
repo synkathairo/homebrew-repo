@@ -35,7 +35,7 @@ class OpenconnectGui < Formula
     # misidentifies Qt framework headers as Mach-O files with Homebrew's Qt.
     inreplace "src/CMakeLists.txt",
               'fixup_bundle(\"${APPS}\" \"${additionalLib}\" \"${libSearchDirs}\")',
-              "message(STATUS \"Skipping fixup_bundle for Homebrew\")"
+              'message(STATUS \"Skipping fixup_bundle for Homebrew\")'
 
     system "cmake",
            "-S", ".",
