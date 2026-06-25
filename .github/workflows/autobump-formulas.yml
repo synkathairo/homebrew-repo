@@ -5,6 +5,10 @@ on:
     - cron: "0 6 * * *" # daily
   workflow_dispatch: # Allows you to trigger this manually from the Actions tab
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   bump-taps:
     runs-on: ubuntu-latest
@@ -21,9 +25,9 @@ jobs:
           # Enable livecheck mode to sweep the entire repository
           livecheck: true
           
-          # Optional: Force a direct push to main if versions are outdated.
-          # If false, it will cleanly open individual Pull Requests for each formula.
-          force: true
+          # Open individual Pull Requests for outdated formulae so tests.yml can
+          # build bottle artifacts and publish.yml can pull them with pr-pull.
+          force: false
 
           git_name: "github-actions[bot]"
           git_email: "41898282+github-actions[bot]@users.noreply.github.com"
