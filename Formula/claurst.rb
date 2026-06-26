@@ -1,8 +1,8 @@
 class Claurst < Formula
   desc "Agentic Coding for Builders who Ship"
   homepage "https://github.com/Kuberwastaken/claurst"
-  url "https://github.com/Kuberwastaken/claurst/archive/refs/tags/v0.1.5.tar.gz"
-  sha256 "b75f053436f09007af59ab050cb96d7bc144c15b8281fd66f364e2b14c7114ea"
+  url "https://github.com/Kuberwastaken/claurst/archive/refs/tags/v0.1.6.tar.gz"
+  sha256 "897bcc04f8f9904d0662f36c489ec97e3c116b1c3fe9d1d8ab14d27d7a49aac3"
   license "GPL-3.0-or-later"
 
   livecheck do
