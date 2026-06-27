@@ -19,8 +19,7 @@ jobs:
         uses: dawidd6/action-homebrew-bump-formula@v3
         with:
           # Required: A Personal Access Token (PAT) with `public_repo` scope
-          #token: ${{ secrets.TAP_GITHUB_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
 
           # Tell the action to look at your tap
           tap: synkathairo/repo
