@@ -11,6 +11,11 @@ cask "sabaki" do
   desc "Go board and SGF editor"
   homepage "https://sabaki.yichuanshen.de/"
 
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
   depends_on :macos
 
   app "Sabaki.app"
