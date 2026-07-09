@@ -12,7 +12,7 @@ cask "font-jigmo" do
   end
 
   font "Jigmo.ttf"
-  font "Jigmo2.tff"
+  font "Jigmo2.ttf"
   font "Jigmo3.ttf"
 
   # No zap stanza required
