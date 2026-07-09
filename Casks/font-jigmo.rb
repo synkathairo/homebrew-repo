@@ -1,6 +1,6 @@
 cask "font-jigmo" do
   version "20250912"
-  sha256 "2fb963ee7bba1d23ccfe81b228422f22da9dc574"
+  sha256 "5744c7386d129475d87607ca66d043c8793c65448adeaedc921b6931890e5d0b"
 
   url "https://kamichikoichi.github.io/jigmo/Jigmo-#{version}.zip"
   name "Jigmo（字雲）フォント"
