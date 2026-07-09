@@ -10,5 +10,9 @@ cask "font-jigmo" do
   font "Jigmo2.tff"
   font "Jigmo3.ttf"
 
+  livecheck do
+    skip "No version information available"
+  end
+
   # No zap stanza required
 end
