@@ -6,13 +6,14 @@ cask "font-jigmo" do
   name "Jigmo（字雲）フォント"
   homepage "https://kamichikoichi.github.io/jigmo/"
 
+  livecheck do
+    url "https://kamichikoichi.github.io/jigmo/"
+    regex(/Jigmo-(\d{8})\.zip/i)
+  end
+
   font "Jigmo.ttf"
   font "Jigmo2.tff"
   font "Jigmo3.ttf"
-
-  livecheck do
-    skip "No version information available"
-  end
 
   # No zap stanza required
 end
