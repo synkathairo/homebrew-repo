@@ -14,7 +14,7 @@ class Claurst < Formula
 
   def install
     cd "src-rust" do
-      system "cargo", "install", *std_cargo_args(path: ".", bin: "claurst")
+      system "cargo", "install", *std_cargo_args(path: ".")
     end
   end
 
