@@ -1,9 +1,9 @@
 cask "okular-nightly" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "7597"
-  sha256 arm:   "35b948cbcf2083d6065f411cbbb2c203de530456bcd3e645a5092f551a325a66",
-         intel: "f0b7d54842655b118fa5c1670faca4a7a52d876b41e3a29a838f12e112c3fb19"
+  version "7633"
+  sha256 arm:   "1acbaca9745673465cd4950fbcd7bda266e675b6749cc5352f97011e7465d03e",
+         intel: "b2413b24a44deab5ff86cffd10a83e052ec006465c6d8eb372b673cf5e610705"
 
   url "https://cdn.kde.org/ci-builds/graphics/okular/master/macos-#{arch}/okular-master-#{version}-macos-clang-#{arch}.dmg"
   name "Okular Nightly"
