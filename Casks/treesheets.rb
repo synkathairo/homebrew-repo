@@ -34,6 +34,9 @@ cask "treesheets" do
   ]
 
   caveats do
-    unsigned_accessibility
+    <<~EOS
+      May be unsigned, run below command in Terminal to allow:
+        xattr -rd com.apple.quarantine #{appdir}/TreeSheets.app
+    EOS
   end
 end
