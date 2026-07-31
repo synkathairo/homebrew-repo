@@ -29,7 +29,8 @@ jobs:
 
           # Open individual Pull Requests for outdated formulae so tests.yml can
           # build bottle artifacts and publish.yml can pull them with pr-pull.
-          force: false
+          # force: false
+          force: true
 
           user_name: "github-actions[bot]"
           user_email: "41898282+github-actions[bot]@users.noreply.github.com"
