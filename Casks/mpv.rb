@@ -37,7 +37,7 @@ cask "mpv" do
     strategy :github_latest
   end
 
-  conflicts_with cask:    "stolendata-mpv"
+  conflicts_with cask: "stolendata-mpv"
   depends_on :macos
 
   app "mpv.app"
