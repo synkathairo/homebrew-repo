@@ -27,9 +27,10 @@ jobs:
           # Enable livecheck mode to sweep the entire repository
           livecheck: true
 
-          # Open individual Pull Requests for outdated formulae so tests.yml can
-          # build bottle artifacts and publish.yml can pull them with pr-pull.
-          # force: false
+          # This action always opens a PR for each outdated formula (via
+          # `brew bump-formula-pr`). `force` only forwards `--force` to that
+          # command, i.e. "don't fail if a bump PR for this formula already
+          # exists" -- it does not push directly to master.
           force: true
 
           user_name: "github-actions[bot]"
