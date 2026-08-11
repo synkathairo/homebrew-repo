@@ -2,6 +2,8 @@ cask "mpv-player" do
   version "0.41.0"
 
   on_arm do
+    depends_on macos: :sonoma
+
     on_sonoma do
       sha256 "5c96f9b21355fc0a11d2e2161ad65f33031070e9fb3f6bd9865fb459b94587e6"
 
@@ -21,6 +23,7 @@ cask "mpv-player" do
     end
   end
   on_intel do
+    depends_on macos: :sequoia
     on_sequoia :or_newer do
       sha256 "41003617ab4f7784394b5ddea7ce51b3e0838e8cfc8166ad1a378b2eda3b583c"
 
