@@ -1,4 +1,4 @@
-cask "mpv" do
+cask "mpv-player" do
   version "0.41.0"
 
   on_arm do
