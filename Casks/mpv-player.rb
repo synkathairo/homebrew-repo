@@ -41,7 +41,6 @@ cask "mpv-player" do
   end
 
   conflicts_with cask: "stolendata-mpv"
-  depends_on :macos
 
   app "mpv.app"
 
