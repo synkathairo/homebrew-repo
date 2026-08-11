@@ -6,6 +6,11 @@ class Container < Formula
   license "Apache-2.0"
   head "https://github.com/apple/container.git", branch: "main"
 
+  bottle do
+    root_url "https://github.com/synkathairo/homebrew-repo/releases/download/container-1.2.2"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "43141b0bd01dc61a844ac3b85fbe52eddaca100ca7b0998bdad3322553ca11e9"
+  end
+
   depends_on xcode: ["26.0", :build]
   depends_on arch: :arm64
   depends_on macos: :sequoia
