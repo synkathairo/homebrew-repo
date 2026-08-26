@@ -9,7 +9,7 @@ includes some casks which will be disabled in the [main Cask repo](https://githu
 - [digikam](https://formulae.brew.sh/cask/digikam)
 - [djview](https://formulae.brew.sh/cask/djview)
 - [gstreamer-runtime](https://formulae.brew.sh/cask/gstreamer-runtime)
-- [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd), 
+- [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd) 
 - [tikzit](https://formulae.brew.sh/cask/tikzit)
 - [wine-stable](https://formulae.brew.sh/cask/wine-stable)
 
@@ -17,7 +17,7 @@ additional casks:
 
 - [font-jigmo](https://kamichikoichi.github.io/jigmo/)
 - [okular-nightly](https://okular.kde.org/download/)
-- [ruffle-nightly](https://ruffle.rs/), 
+- [ruffle-nightly](https://ruffle.rs/)
 
 ## Usage notes
 
