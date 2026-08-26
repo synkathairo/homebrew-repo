@@ -7,8 +7,8 @@ class Container < Formula
   head "https://github.com/apple/container.git", branch: "main"
 
   bottle do
-    root_url "https://github.com/synkathairo/homebrew-repo/releases/download/container-1.2.2"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe: "43141b0bd01dc61a844ac3b85fbe52eddaca100ca7b0998bdad3322553ca11e9"
+    root_url "https://github.com/synkathairo/homebrew-repo/releases/download/container-1.3.0"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe: "aaa1d73def62a9d8c19064d5c01c60ee6a64faea706e870a1d88f21e36413a0b"
   end
 
   depends_on xcode: ["26.0", :build]
