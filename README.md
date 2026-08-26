@@ -2,16 +2,34 @@
 
 some useful software for macOS: `okular-nightly`
 
-includes some casks which will be disabled in the [main Cask repo](https://github.com/Homebrew/homebrew-cask) after 1 September 2026 (no Gatekeeper signature): [chromium](https://formulae.brew.sh/cask/chromium), [darktable](https://formulae.brew.sh/cask/darktable), [digikam](https://formulae.brew.sh/cask/digikam), [djview](https://formulae.brew.sh/cask/djview), [gstreamer-runtime](https://formulae.brew.sh/cask/gstreamer-runtime), [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd), [tikzit](https://formulae.brew.sh/cask/tikzit), [wine-stable](https://formulae.brew.sh/cask/wine-stable)
+includes some casks which will be disabled in the [main Cask repo](https://github.com/Homebrew/homebrew-cask) after 1 September 2026 (no [Gatekeeper signature](https://github.com/Homebrew/brew/issues/20755)): 
 
-additional casks: [okular-nightly](https://okular.kde.org/download/), [ruffle-nightly](https://ruffle.rs/), 
+- [chromium](https://formulae.brew.sh/cask/chromium)
+- [darktable](https://formulae.brew.sh/cask/darktable)
+- [digikam](https://formulae.brew.sh/cask/digikam)
+- [djview](https://formulae.brew.sh/cask/djview)
+- [gstreamer-runtime](https://formulae.brew.sh/cask/gstreamer-runtime)
+- [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd), 
+- [tikzit](https://formulae.brew.sh/cask/tikzit)
+- [wine-stable](https://formulae.brew.sh/cask/wine-stable)
+
+additional casks: 
+
+- [font-jigmo](https://kamichikoichi.github.io/jigmo/)
+- [okular-nightly](https://okular.kde.org/download/)
+- [ruffle-nightly](https://ruffle.rs/), 
 
 ## Usage notes
 
-Some software may be unsigned, and requires running, for example 
+Some (cask) software may be unsigned, and requires running, for example 
 
 `xattr -rd com.apple.quarantine /Applications/okular.app`
 
+to bypass the lack of Gatekeeper signature.
+
 # Comments
 
-Additional tap repos: [Brewforge/homebrew-extras](https://github.com/Brewforge/homebrew-extras)
+Additional tap repos which may be useful: 
+
+- [brewforge/extras](https://github.com/Brewforge/homebrew-extras)
+- [brewsci/bio](https://github.com/brewsci/homebrew-bio)
