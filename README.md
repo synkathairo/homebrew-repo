@@ -6,6 +6,7 @@ includes some casks which will be disabled in the [main Cask repo](https://githu
 
 - [chromium](https://formulae.brew.sh/cask/chromium)
 - [darktable](https://formulae.brew.sh/cask/darktable)
+- [displaycal](https://formulae.brew.sh/cask/displaycal)
 - [digikam](https://formulae.brew.sh/cask/digikam)
 - [djview](https://formulae.brew.sh/cask/djview)
 - [gstreamer-runtime](https://formulae.brew.sh/cask/gstreamer-runtime)
