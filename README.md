@@ -11,6 +11,7 @@ includes some casks which will be disabled in the [main Cask repo](https://githu
 - [gstreamer-runtime](https://formulae.brew.sh/cask/gstreamer-runtime)
 - [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd) 
 - [tikzit](https://formulae.brew.sh/cask/tikzit)
+- [vlc@nightly](https://formulae.brew.sh/cask/vlc@nightly)
 - [wine-stable](https://formulae.brew.sh/cask/wine-stable)
 
 additional casks: 
