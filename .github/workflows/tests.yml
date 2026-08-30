@@ -28,6 +28,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Select Xcode 26
+        if: startsWith(matrix.os, 'macos-15')
+        run: sudo xcode-select -s /Applications/Xcode_26.3.app
+
       - name: Cache Homebrew Bundler RubyGems
         uses: actions/cache@v4
         with:

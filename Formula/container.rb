@@ -11,7 +11,7 @@ class Container < Formula
     sha256 cellar: :any_skip_relocation, arm64_tahoe: "676e9a34be58a4a99d997c2b7335ac51fadf3a0ad5bf4bcc82b54f31b2b40c7e"
   end
 
-  depends_on xcode: ["16.4", :build]
+  depends_on xcode: ["26.0", :build]
   depends_on arch: :arm64
   depends_on macos: :sequoia
 
