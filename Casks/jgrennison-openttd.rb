@@ -7,6 +7,11 @@ cask "jgrennison-openttd" do
   desc "Collection of patches applied to OpenTTD"
   homepage "https://github.com/JGRennison/OpenTTD-patches/"
 
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
   depends_on :macos
 
   app "OpenTTD.app"

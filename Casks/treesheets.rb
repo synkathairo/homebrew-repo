@@ -2,8 +2,7 @@ cask "treesheets" do
   version "3333"
   sha256 "4f4a05011d3d3c0256d3f97bee49a28c1bd6a4e7253cb296b6f73f392695e90e"
 
-  url "https://github.com/aardappel/treesheets/releases/download/#{version.csv.second || version.csv.first}/TreeSheets-#{version.csv.first}-Darwin.dmg",
-      verified: "github.com/aardappel/treesheets/"
+  url "https://github.com/aardappel/treesheets/releases/download/#{version.csv.second || version.csv.first}/TreeSheets-#{version.csv.first}-Darwin.dmg"
   name "TreeSheets"
   desc "Hierarchical spreadsheet and outline application"
   homepage "https://strlen.com/treesheets/"
@@ -28,15 +27,9 @@ cask "treesheets" do
   uninstall quit: "dot3labs.TreeSheets"
 
   zap trash: [
+    "~/Library/Preferences/com.strlen.TreeSheets.plist",
     "~/Library/Preferences/dot3labs.TreeSheets.plist",
     "~/Library/Preferences/TreeSheets Preferences",
     "~/Library/Saved Application State/dot3labs.TreeSheets.savedState",
   ]
-
-  caveats do
-    <<~EOS
-      May be unsigned, run below command in Terminal to allow:
-        xattr -rd com.apple.quarantine #{appdir}/TreeSheets.app
-    EOS
-  end
 end
