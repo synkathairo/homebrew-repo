@@ -15,7 +15,7 @@ cask "okular-nightly" do
     regex(/okular-master-(\d+)-macos-clang-arm64\.dmg/i)
   end
 
-  depends_on :macos
+  depends_on macos: :ventura
 
   app "okular.app"
 
