@@ -18,13 +18,14 @@ jobs:
       - name: Check and bump all formulas
         uses: dawidd6/action-homebrew-bump-formula@v3
         env:
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
           HOMEBREW_GIT_COMMITTER_NAME: github-actions[bot]
           HOMEBREW_GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
         with:
           # Required: A Personal Access Token (PAT) with `public_repo` scope
-          # token: ${{ secrets.TAP_GITHUB_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.TAP_GITHUB_TOKEN }}
+          # token: ${{ secrets.GITHUB_TOKEN }}
 
           # Tell the action to look at your tap
           tap: synkathairo/repo
