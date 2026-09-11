@@ -1,6 +1,6 @@
 cask "ruffle-nightly" do
-  version "2026_08_30"
-  sha256 "ee68a9b7b62321db1107569b9a4b084c0a08c75703d12ecb831b0804064edc54"
+  version "2026_09_11"
+  sha256 "76dedbc9a627f23b34238b7478ae6882413ca95e1c307c07a8833b5cb7734c74"
 
   url "https://github.com/ruffle-rs/ruffle/releases/download/nightly-#{version.tr("_", "-")}/ruffle-nightly-#{version}-macos-universal.tar.gz"
   name "ruffle-nightly"
