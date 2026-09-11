@@ -23,8 +23,6 @@ jobs:
       HOMEBREW_SIMULATE_MACOS_ON_LINUX: 1
     # runs-on: macos-26
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/homebrew/brew:main
     steps:
       - name: Set up Homebrew
         id: set-up-homebrew
