@@ -3,7 +3,6 @@ cask "ruffle-nightly" do
   sha256 "ee68a9b7b62321db1107569b9a4b084c0a08c75703d12ecb831b0804064edc54"
 
   url "https://github.com/ruffle-rs/ruffle/releases/download/nightly-#{version.tr("_", "-")}/ruffle-nightly-#{version}-macos-universal.tar.gz",
-      verified: "github.com/ruffle-rs/ruffle/"
   name "ruffle-nightly"
   desc "Open source Flash Player emulator"
   homepage "https://ruffle.rs/"
