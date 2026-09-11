@@ -15,7 +15,7 @@ class OpenconnectGui < Formula
   depends_on "pkg-config" => :build
   depends_on xcode: :build
   depends_on "fmt"
-  depends_on macos: :catalina
+  depends_on macos: :big_sur
   depends_on "openconnect"
   depends_on "qtbase"
   depends_on "qtscxml"
@@ -42,7 +42,7 @@ class OpenconnectGui < Formula
            "-B", "build",
            *std_cmake_args,
            "-DCMAKE_BUILD_TYPE=Release",
-           "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.15"
+           "-DCMAKE_OSX_DEPLOYMENT_TARGET=11.0"
 
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
