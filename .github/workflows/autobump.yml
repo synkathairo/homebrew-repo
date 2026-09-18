@@ -57,7 +57,7 @@ jobs:
           CASKS: ${{ inputs.casks }}
         run: |
           TAP="synkathairo/repo"
-          BREW_BUMP=(brew bump --no-fork --open-pr --casks)
+          BREW_BUMP=(brew bump --no-fork --open-pr --casks --full-name)
           CASK_ARGS=()
 
           if [[ -n "${CASKS-}" ]]; then
