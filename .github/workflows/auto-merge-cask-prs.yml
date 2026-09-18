@@ -1,10 +1,11 @@
-name: Auto-merge cask bump PRs
+name: Auto-merge tested cask bump PRs
 
+# Merge cask-only bot PRs after the complete test-bot matrix succeeds. This
+# avoids depending on the bump sweep's final status: that sweep can open valid
+# PRs and still fail later while checking another cask.
 on:
   workflow_run:
-    workflows:
-      - "Bump casks (using macos runner)"
-      - "Bump casks (using ubuntu runner)"
+    workflows: ["brew test-bot"]
     types: [completed]
   workflow_dispatch:
 
@@ -13,20 +14,26 @@ permissions:
   pull-requests: write
 
 jobs:
-  enable-auto-merge:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+  merge-cask-pr:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'pull_request')
     runs-on: ubuntu-latest
     steps:
-      - name: Enable auto-merge for bot cask bumps
+      - name: Merge tested bot cask bumps
         uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const candidates = (await github.paginate(github.rest.pulls.list, {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-            })).map(({ number }) => number);
+            const run = context.payload.workflow_run;
+            const candidates = run
+              ? (run.pull_requests || []).map(({ number }) => number)
+              : (await github.paginate(github.rest.pulls.list, {
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'open',
+                })).map(({ number }) => number);
 
             for (const number of [...new Set(candidates)]) {
               const { data: pullRequest } = await github.rest.pulls.get({
@@ -35,27 +42,46 @@ jobs:
                 pull_number: number,
               });
 
-              if (pullRequest.user.login !== 'github-actions[bot]' ||
-                  !pullRequest.head.ref.startsWith('bump-')) continue;
+              const trustedBotCaskPr =
+                pullRequest.user.login === 'github-actions[bot]' &&
+                pullRequest.head.repo.full_name === `${context.repo.owner}/${context.repo.repo}` &&
+                pullRequest.head.ref.startsWith('bump-') &&
+                pullRequest.base.ref === context.payload.repository.default_branch &&
+                !pullRequest.draft;
+              if (!trustedBotCaskPr) continue;
+
+              // Do not merge a different revision if the PR changed after the
+              // successful workflow run completed.
+              if (run && pullRequest.head.sha !== run.head_sha) {
+                core.warning(`Skipping #${number}: tested SHA is no longer current`);
+                continue;
+              }
 
               const files = await github.paginate(github.rest.pulls.listFiles, {
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 pull_number: number,
               });
-
               if (!files.length || files.some(({ filename }) => !filename.startsWith('Casks/'))) continue;
 
-              await github.graphql(`
-                mutation($pullRequestId: ID!) {
-                  enablePullRequestAutoMerge(input: {
-                    pullRequestId: $pullRequestId,
-                    mergeMethod: SQUASH
-                  }) {
-                    pullRequest { number }
-                  }
-                }
-              `, { pullRequestId: pullRequest.node_id });
+              // A manual run has no associated successful test workflow, so
+              // only merge PRs that GitHub currently reports as clean.
+              if (!run && pullRequest.mergeable_state !== 'clean') {
+                core.warning(`Skipping #${number}: merge state is ${pullRequest.mergeable_state}`);
+                continue;
+              }
 
-              core.info(`Enabled auto-merge for #${number}`);
+              const { data: result } = await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: number,
+                merge_method: 'squash',
+                sha: pullRequest.head.sha,
+              });
+
+              if (!result.merged) {
+                core.setFailed(`GitHub did not merge #${number}: ${result.message}`);
+                continue;
+              }
+              core.info(`Merged tested cask bump PR #${number}`);
             }

@@ -28,14 +28,31 @@ jobs:
       - name: Label passed autobump PRs with pr-pull
         uses: actions/github-script@v7
         with:
+          # Labels created with GITHUB_TOKEN do not start publish.yml.
+          github-token: ${{ secrets.TAP_GITHUB_TOKEN }}
           script: |
             const run = context.payload.workflow_run;
             const prs = run.pull_requests || [];
             const labeled = [];
             for (const pr of prs) {
-              // Only auto-bottle PRs opened by the formula autobump action.
-              const branch = pr.head && pr.head.ref;
-              if (!branch || !branch.startsWith('bump-')) continue;
+              // Only trust formula autobumps created in this repository.
+              const { data: pullRequest } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+              });
+              const trustedAuthors = new Set([context.repo.owner, 'github-actions[bot]']);
+              if (!trustedAuthors.has(pullRequest.user.login) ||
+                  pullRequest.head.repo.full_name !== `${context.repo.owner}/${context.repo.repo}` ||
+                  !pullRequest.head.ref.startsWith('bump-')) continue;
+
+              const files = await github.paginate(github.rest.pulls.listFiles, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr.number,
+              });
+              if (!files.length || files.some(({ filename }) => !filename.startsWith('Formula/'))) continue;
+
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
