@@ -21,10 +21,21 @@ jobs:
        github.event.workflow_run.event == 'pull_request')
     runs-on: ubuntu-latest
     steps:
+      - name: Create Homebrew bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.BREW_COMMIT_CLIENT_ID }}
+          private-key: ${{ secrets.HOMEBREW_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Merge tested bot cask bumps
         uses: actions/github-script@v9
+        env:
+          BOT_LOGIN: ${{ steps.app-token.outputs.app-slug }}[bot]
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
           script: |
             const run = context.payload.workflow_run;
             const candidates = run
@@ -42,8 +53,9 @@ jobs:
                 pull_number: number,
               });
 
+              const trustedAuthors = new Set([process.env.BOT_LOGIN, 'github-actions[bot]']);
               const trustedBotCaskPr =
-                pullRequest.user.login === 'github-actions[bot]' &&
+                trustedAuthors.has(pullRequest.user.login) &&
                 pullRequest.head.repo.full_name === `${context.repo.owner}/${context.repo.repo}` &&
                 pullRequest.head.ref.startsWith('bump-') &&
                 pullRequest.base.ref === context.payload.repository.default_branch &&
