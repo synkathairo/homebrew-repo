@@ -1,8 +1,8 @@
 class Bend < Formula
   desc "Fast language that blocks AI mistakes via proof"
   homepage "https://bend-lang.com"
-  url "https://bend-lang.com/dl/2.0.4.tar.gz"
-  sha256 "dff7d7e7b42a4572c79d3084093521d198a93af4684d4a10fe8322c265481734"
+  url "https://bend-lang.com/dl/2.0.5.tar.gz"
+  sha256 "4db70e77ce1b1027f1d0e15dee025921fa794a9b415add4350ec7c64acf2775b"
   license "Apache-2.0"
 
   livecheck do
