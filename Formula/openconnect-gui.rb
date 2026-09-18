@@ -15,7 +15,7 @@ class OpenconnectGui < Formula
   depends_on "pkg-config" => :build
   depends_on xcode: :build
   depends_on "fmt"
-  depends_on macos: :big_sur
+  depends_on :macos
   depends_on "openconnect"
   depends_on "qtbase"
   depends_on "qtscxml"
