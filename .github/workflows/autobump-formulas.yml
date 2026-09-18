@@ -15,17 +15,34 @@ jobs:
     env:
       HOMEBREW_SIMULATE_MACOS_ON_LINUX: 1
     steps:
+      # GitHub App installation tokens are intentionally short-lived. Generate
+      # a fresh least-privilege token for each workflow run.
+      - name: Create Homebrew bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.HOMEBREW_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.HOMEBREW_BOT_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Get Homebrew bot user ID
+        id: bot-user
+        env:
+          BOT_LOGIN: ${{ steps.app-token.outputs.app-slug }}[bot]
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          bot_user_id="$(gh api "users/${BOT_LOGIN}" --jq .id)"
+          echo "user-id=${bot_user_id}" >> "$GITHUB_OUTPUT"
+
       - name: Check and bump all formulas
         uses: dawidd6/action-homebrew-bump-formula@v10
         env:
-          # HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HOMEBREW_GITHUB_API_TOKEN: ${{ secrets.TAP_GITHUB_TOKEN }}
-          HOMEBREW_GIT_COMMITTER_NAME: github-actions[bot]
-          HOMEBREW_GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          HOMEBREW_GITHUB_API_TOKEN: ${{ steps.app-token.outputs.token }}
+          HOMEBREW_GIT_COMMITTER_NAME: ${{ steps.app-token.outputs.app-slug }}[bot]
+          HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.bot-user.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com
         with:
-          # Required: A Personal Access Token (PAT) with `public_repo` scope
-          token: ${{ secrets.TAP_GITHUB_TOKEN }}
-          # token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
 
           # Tell the action to look at your tap
           tap: synkathairo/repo
@@ -39,5 +56,5 @@ jobs:
           # exists" -- it does not push directly to master.
           force: true
 
-          user_name: "github-actions[bot]"
-          user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          user_name: "${{ steps.app-token.outputs.app-slug }}[bot]"
+          user_email: "${{ steps.bot-user.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
