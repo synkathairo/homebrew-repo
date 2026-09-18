@@ -56,10 +56,25 @@ jobs:
           HOMEBREW_GIT_COMMITTER_EMAIL: ${{ steps.git-user-config.outputs.email }}
           CASKS: ${{ inputs.casks }}
         run: |
+          TAP="synkathairo/repo"
           BREW_BUMP=(brew bump --no-fork --open-pr --casks)
+          CASK_ARGS=()
 
           if [[ -n "${CASKS-}" ]]; then
-            xargs "${BREW_BUMP[@]}" <<<"${CASKS}"
+            while IFS= read -r cask; do
+              [[ -n "${cask}" ]] || continue
+              [[ "${cask}" == */*/* ]] || cask="${TAP}/${cask}"
+              if [[ "${cask}" != "${TAP}/"* ]]; then
+                echo "Refusing to bump cask outside ${TAP}: ${cask}" >&2
+                exit 1
+              fi
+              CASK_ARGS+=("${cask}")
+            done < <(xargs -n1 <<<"${CASKS}")
           else
-            "${BREW_BUMP[@]}" --tap=synkathairo/repo
+            while IFS= read -r cask; do
+              CASK_ARGS+=("${cask}")
+            done < <(brew tap-info --json "${TAP}" | jq -r '.[0].cask_tokens[]')
           fi
+
+          ((${#CASK_ARGS[@]})) || { echo "No casks found for ${TAP}" >&2; exit 1; }
+          "${BREW_BUMP[@]}" "${CASK_ARGS[@]}"
