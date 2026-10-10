@@ -4,13 +4,16 @@ some useful software for macOS: `okular-nightly`
 
 includes some casks which will be disabled in the [main Cask repo](https://github.com/Homebrew/homebrew-cask) after 1 September 2026 (no [Gatekeeper signature](https://github.com/Homebrew/brew/issues/20755)): 
 
+- [angband-app](https://formulae.brew.sh/cask/angband-app)
 - [chromium](https://formulae.brew.sh/cask/chromium)
 - [darktable](https://formulae.brew.sh/cask/darktable)
 - [displaycal](https://formulae.brew.sh/cask/displaycal)
 - [digikam](https://formulae.brew.sh/cask/digikam)
 - [djview](https://formulae.brew.sh/cask/djview)
 - [gstreamer-runtime](https://formulae.brew.sh/cask/gstreamer-runtime)
-- [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd) 
+- [jgrennison-openttd](https://formulae.brew.sh/cask/jgrennison-openttd)
+- [logisim-evolution](https://formulae.brew.sh/cask/logisim-evolution)
+- [stolendata-mpv](https://formulae.brew.sh/cask/stolendata-mpv)
 - [tikzit](https://formulae.brew.sh/cask/tikzit)
 - [vlc@nightly](https://formulae.brew.sh/cask/vlc@nightly)
 - [wine-stable](https://formulae.brew.sh/cask/wine-stable)
@@ -18,6 +21,7 @@ includes some casks which will be disabled in the [main Cask repo](https://githu
 additional casks: 
 
 - [font-jigmo](https://kamichikoichi.github.io/jigmo/)
+- [mpv-player](https://github.com/mpv-player/mpv)
 - [okular-nightly](https://okular.kde.org/download/)
 - [ruffle-nightly](https://ruffle.rs/)
 
