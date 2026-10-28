@@ -1,4 +1,3 @@
-
 class Camilladsp < Formula
   desc "Powerful and flexible audio processing tool, designed for applications like active crossovers, room correction, and advanced audio filtering"
   homepage "https://github.com/HEnquist/camilladsp"
@@ -7,28 +6,22 @@ class Camilladsp < Formula
   license "GPL-3.0-only OR MPL-2.0"
   head "https://github.com/HEnquist/camilladsp.git", branch: "master"
 
-  depends_on "rust" => :build
   depends_on "pkgconf" => :build
+  depends_on "rust" => :build
 
   on_linux do
     depends_on "alsa-lib"
   end
 
   def fetch
-    system "cargo", "fetch", "--locked", *std_cargo_fetch_args
+    system "cargo", "fetch", *std_cargo_fetch_args
   end
 
   def install
-    system "cargo", "install",
-           "--locked",
-           "--offline",
-           "--root", prefix,
-           "--path", ".",
-           "--bin", "camilladsp"
+    system "cargo", "install", *std_cargo_args, "--bin", "camilladsp"
   end
 
   test do
     assert_match version.to_s, shell_output("#{bin}/camilladsp --version")
   end
 end
-
