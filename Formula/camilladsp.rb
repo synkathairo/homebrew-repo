@@ -14,6 +14,7 @@ class Camilladsp < Formula
   end
 
   def fetch
+    system "cargo", "generate-lockfile"
     system "cargo", "fetch", *std_cargo_fetch_args
   end
 
