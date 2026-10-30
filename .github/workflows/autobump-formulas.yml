@@ -34,6 +34,14 @@ jobs:
         run: |
           bot_user_id="$(gh api "users/${BOT_LOGIN}" --jq .id)"
           echo "user-id=${bot_user_id}" >> "$GITHUB_OUTPUT"
+      
+      - name: Cache Homebrew downloads
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/Homebrew
+          key: homebrew-linux-${{ runner.arch }}-${{ github.run_id }}
+          restore-keys: |
+            homebrew-linux-${{ runner.arch }}-
 
       - name: Check and bump all formulas
         uses: dawidd6/action-homebrew-bump-formula@v10
