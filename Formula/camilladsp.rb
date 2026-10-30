@@ -3,7 +3,7 @@ class Camilladsp < Formula
   homepage "https://github.com/HEnquist/camilladsp"
   url "https://github.com/HEnquist/camilladsp/archive/refs/tags/v4.1.3.tar.gz"
   sha256 "7e2fdca1e9c73885426ac889d27682c76d49ea1ea52c5f5bfe5356d7fdfa52df"
-  license "GPL-3.0-only OR MPL-2.0"
+  license any_of: ["GPL-3.0-only", "MPL-2.0"]
   head "https://github.com/HEnquist/camilladsp.git", branch: "master"
 
   depends_on "pkgconf" => :build
