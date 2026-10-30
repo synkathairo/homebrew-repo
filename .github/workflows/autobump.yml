@@ -22,7 +22,7 @@ jobs:
       # HOMEBREW_NO_INSTALL_FROM_API: 1
       HOMEBREW_SIMULATE_MACOS_ON_LINUX: 1
       # HOMEBREW_NO_ANALYTICS: 1
-    runs-on: macos-26
+    runs-on: macos-latest
     # runs-on: ubuntu-latest
     steps:
       - name: Create Homebrew bot token
