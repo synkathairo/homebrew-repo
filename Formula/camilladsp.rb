@@ -1,5 +1,5 @@
 class Camilladsp < Formula
-  desc "Powerful and flexible audio processing tool, designed for applications like active crossovers, room correction, and advanced audio filtering"
+  desc "Flexible cross-platform IIR and FIR engine for crossovers, room correction etc"
   homepage "https://github.com/HEnquist/camilladsp"
   url "https://github.com/HEnquist/camilladsp/archive/refs/tags/v4.1.3.tar.gz"
   sha256 "7e2fdca1e9c73885426ac889d27682c76d49ea1ea52c5f5bfe5356d7fdfa52df"

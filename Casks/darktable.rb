@@ -10,12 +10,8 @@ cask "darktable" do
          x86_64_linux: "867ba61fca41d614e6650fd92d6e7968d8c56a1d1dd2bbc3aa06b52508694ed6"
 
   on_macos do
-    on_arm do
-      depends_on macos: :sonoma
-    end
-    on_intel do
-      depends_on macos: :sequoia
-    end
+    depends_on arch: :arm64
+    depends_on macos: :sonoma
 
     app "darktable.app"
 

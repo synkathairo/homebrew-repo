@@ -15,5 +15,5 @@ cask "font-jigmo" do
   font "Jigmo2.ttf"
   font "Jigmo3.ttf"
 
-  # No zap stanza required
+  zap :not_required
 end
