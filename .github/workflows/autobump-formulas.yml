@@ -56,5 +56,7 @@ jobs:
           # exists" -- it does not push directly to master.
           force: true
 
+          no_fork: true
+
           user_name: "${{ steps.app-token.outputs.app-slug }}[bot]"
           user_email: "${{ steps.bot-user.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com"
