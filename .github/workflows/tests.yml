@@ -25,12 +25,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Cache Homebrew prefix
-        uses: Homebrew/actions/cache-homebrew-prefix@main
-        with:
-          workflow-key: test-bot
-          uninstall: true
-
       - name: Cache Homebrew downloads
         uses: actions/cache@v6
         with:
