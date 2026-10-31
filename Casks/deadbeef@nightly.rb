@@ -7,6 +7,7 @@ cask "deadbeef@nightly" do
   desc "Modular audio player"
   homepage "https://deadbeef.sourceforge.io/"
 
+  conflicts_with cask: "deadbeef"
   depends_on :macos
 
   app "DeaDBeeF.app"
