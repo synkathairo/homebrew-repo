@@ -8,8 +8,8 @@ cask "horizon-launcher" do
   homepage "https://playhorizon.dev/"
 
   livecheck do
-    url :url
-    strategy :github_latest
+    url "https://github.com/horizon-rust/horizon.git"
+    regex(/^launcher@(\d+(?:\.\d+)+)$/)
   end
 
   depends_on arch: :arm64
