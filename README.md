@@ -25,6 +25,10 @@ additional casks:
 - [okular-nightly](https://okular.kde.org/download/)
 - [ruffle-nightly](https://ruffle.rs/)
 
+formulas:
+
+- [camilladsp](https://www.camilladsp.com/)
+
 ## Usage notes
 
 Some (cask) software may be unsigned, and requires running, for example 
