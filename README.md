@@ -2,7 +2,7 @@
 
 some useful software for macOS: `okular-nightly`
 
-includes some casks which will be disabled in the [main Cask repo](https://github.com/Homebrew/homebrew-cask) after 1 September 2026 (no [Gatekeeper signature](https://github.com/Homebrew/brew/issues/20755)): 
+includes some casks which will be disabled in the [main Cask repo](https://github.com/Homebrew/homebrew-cask) after 1 September 2026 (no [Gatekeeper signature](https://github.com/Homebrew/brew/issues/20755)):
 
 - [angband-app](https://formulae.brew.sh/cask/angband-app)
 - [chromium](https://formulae.brew.sh/cask/chromium)
@@ -18,9 +18,10 @@ includes some casks which will be disabled in the [main Cask repo](https://githu
 - [vlc@nightly](https://formulae.brew.sh/cask/vlc@nightly)
 - [wine-stable](https://formulae.brew.sh/cask/wine-stable)
 
-additional casks: 
+additional casks:
 
 - [font-jigmo](https://kamichikoichi.github.io/jigmo/)
+- [horizon-launcher](https://playhorizon.dev/)
 - [mpv-player](https://github.com/mpv-player/mpv)
 - [okular-nightly](https://okular.kde.org/download/)
 - [ruffle-nightly](https://ruffle.rs/)
@@ -31,7 +32,7 @@ formulas:
 
 ## Usage notes
 
-Some (cask) software may be unsigned, and requires running, for example 
+Some (cask) software may be unsigned, and requires running, for example
 
 `xattr -rd com.apple.quarantine /Applications/okular.app`
 
@@ -39,7 +40,7 @@ to bypass the lack of Gatekeeper signature.
 
 # Comments
 
-Additional tap repos which may be useful: 
+Additional tap repos which may be useful:
 
 - [brewforge/extras](https://github.com/Brewforge/homebrew-extras)
 - [brewsci/bio](https://github.com/brewsci/homebrew-bio)
