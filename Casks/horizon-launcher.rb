@@ -1,6 +1,6 @@
 cask "horizon-launcher" do
-  version "0.2.33"
-  sha256 "2f58d49bfb4ecba55b800f0cec4c748cc4caa7c980071661f4e71aa37303ffee"
+  version "0.2.69"
+  sha256 "36a7f58266a13dd4723a013ff1c33bd94d1226e781dc305de0e073aa888f158f"
 
   url "https://github.com/horizon-rust/horizon/releases/download/launcher@#{version}/horizon-launcher-macos-arm64.dmg"
   name "Horizon launcher"
@@ -13,7 +13,7 @@ cask "horizon-launcher" do
   end
 
   depends_on arch: :arm64
-  depends_on :macos
+  depends_on macos: :monterey
 
   app "Horizon.app"
 
