@@ -1,6 +1,6 @@
 cask "horizon-launcher" do
-  version "0.2.70"
-  sha256 "91fe96d2de5ce1aecdc4b405ae00583de351a194bb887d82a9dec1d232fb8a9c"
+  version "0.2.78"
+  sha256 "c2c495a4c7a050720042b532ad635c7aae1654741cfc9891f1bab9602fba26e5"
 
   url "https://github.com/horizon-rust/horizon/releases/download/launcher@#{version}/horizon-launcher-macos-arm64.dmg"
   name "Horizon launcher"
