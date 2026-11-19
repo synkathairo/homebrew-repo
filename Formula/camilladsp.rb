@@ -27,12 +27,12 @@ class Camilladsp < Formula
 
     (testpath/"input.raw").write("\x00" * 4096)
     (testpath/"config.yml").write <<~YAML
-         devices:
-           samplerate: 96000
-           chunksize: 1024
-      resampler:
-        type: AsyncSinc
-        profile: Fast
+      devices:
+        samplerate: 96000
+        chunksize: 1024
+        resampler:
+          type: AsyncSinc
+          profile: Fast
       capture_samplerate: 44100
       playback:
         type: File
