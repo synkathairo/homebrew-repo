@@ -28,35 +28,23 @@ class Camilladsp < Formula
     (testpath/"input.raw").write("\x00" * 4096)
     (testpath/"config.yml").write <<~YAML
       devices:
-        samplerate: 44100
-        chunksize: 512
-        capture:
-          type: RawFile
-          channels: 2
-          format: S16LE
-          filename: #{testpath}/input.raw
-        playback:
-          type: File
-          channels: 2
-          format: S16LE
-          filename: #{testpath}/output.raw
-      filters:
-        testfilter:
-          type: Biquad
-          description: "nbr 1"
-          parameters:
-            type: Lowpass
-            freq: 5000
-            q: 0.7
-      pipeline:
-        - type: Filter
-          names:
-            - testfilter
-          channels: [0]
-        - type: Filter
-          names:
-            - testfilter
-          channels: [1]
+        samplerate: 96000
+        chunksize: 1024
+	  resampler:
+	    type: AsyncSinc
+	    profile: Fast
+	  capture_samplerate: 44100
+	  playback:
+	    type: File
+	    channels: 2
+	    filename: #{testpath}/output.raw
+	    format: S16_LE
+	  capture:
+	    type: RawFile
+	    channels: 2
+	    filename: #{testpath}/input.raw
+	    format: S16_LE
+	    extra_samples: 0
     YAML
 
     system "#{bin}/camilladsp", "--check", testpath/"config.yml"
