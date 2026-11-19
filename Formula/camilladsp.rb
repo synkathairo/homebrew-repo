@@ -33,18 +33,18 @@ class Camilladsp < Formula
         resampler:
           type: AsyncSinc
           profile: Fast
-      capture_samplerate: 44100
-      playback:
-        type: File
-        channels: 2
-        filename: #{testpath}/output.raw
-        format: S16_LE
-      capture:
-        type: RawFile
-        channels: 2
-        filename: #{testpath}/input.raw
-        format: S16_LE
-        extra_samples: 0
+        capture_samplerate: 44100
+        playback:
+          type: File
+          channels: 2
+          filename: #{testpath}/output.raw
+          format: S16_LE
+        capture:
+          type: RawFile
+          channels: 2
+          filename: #{testpath}/input.raw
+          format: S16_LE
+          extra_samples: 0
     YAML
 
     system "#{bin}/camilladsp", "--check", testpath/"config.yml"
