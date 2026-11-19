@@ -24,5 +24,41 @@ class Camilladsp < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/camilladsp --version")
+
+    (testpath/"input.raw").write("\x00" * 4096)
+    (testpath/"config.yml").write <<~YAML
+      devices:
+        samplerate: 44100
+        chunksize: 512
+        capture:
+          type: File
+          channels: 2
+          format: S16LE
+          filename: #{testpath}/input.raw
+        playback:
+          type: File
+          channels: 2
+          format: S16LE
+          filename: #{testpath}/output.raw
+      filters:
+        testfilter:
+          type: Biquad
+          description: "nbr 1"
+          parameters:
+            type: Lowpass
+            freq: 5000
+            q: 0.7
+      pipeline:
+        - type: Filter
+          names:
+            - testfilter
+          channels: [0]
+        - type: Filter
+          names:
+            - testfilter
+          channels: [1]
+    YAML
+
+    system "#{bin}/camilladsp", "--check", testpath/"config.yml"
   end
 end
