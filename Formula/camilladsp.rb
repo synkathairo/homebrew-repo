@@ -31,7 +31,7 @@ class Camilladsp < Formula
         samplerate: 44100
         chunksize: 512
         capture:
-          type: File
+          type: RawFile
           channels: 2
           format: S16LE
           filename: #{testpath}/input.raw
