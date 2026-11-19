@@ -47,6 +47,6 @@ class Camilladsp < Formula
           extra_samples: 0
     YAML
 
-    system "bin/camilladsp", "--check", testpath/"config.yml"
+    system bin/"camilladsp", "--check", testpath/"config.yml"
   end
 end
