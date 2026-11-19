@@ -1,0 +1,59 @@
+name: cask checks
+
+on:
+  pull_request:
+    paths:
+      - 'Casks/**'
+      - '.github/workflows/cask-checks.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  casks:
+    runs-on: macos-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@main
+        with:
+          cask: true
+
+      - name: Find changed casks
+        id: changed
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags --depth=1 origin "$BASE_REF"
+          changed=$(git diff --name-only --diff-filter=d "origin/$BASE_REF...HEAD" -- 'Casks/*.rb')
+          added=$(git diff --name-only --diff-filter=A "origin/$BASE_REF...HEAD" -- 'Casks/*.rb')
+          {
+            echo "changed<<EOF"
+            echo "$changed"
+            echo "EOF"
+            echo "added<<EOF"
+            echo "$added"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Style check
+        if: steps.changed.outputs.changed != ''
+        env:
+          FILES: ${{ steps.changed.outputs.changed }}
+        run: printf '%s\n' "$FILES" | xargs brew style
+
+      - name: Audit changed casks
+        if: steps.changed.outputs.changed != ''
+        env:
+          FILES: ${{ steps.changed.outputs.changed }}
+        run: printf '%s\n' "$FILES" | xargs -n1 brew audit --cask --online
+
+      - name: Audit new casks
+        if: steps.changed.outputs.added != ''
+        env:
+          FILES: ${{ steps.changed.outputs.added }}
+        run: printf '%s\n' "$FILES" | xargs -n1 brew audit --cask --new
