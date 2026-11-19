@@ -26,11 +26,11 @@ jobs:
       - name: Find changed casks
         id: changed
         env:
-          BASE_REF: ${{ github.base_ref }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          git fetch --no-tags --depth=1 origin "$BASE_REF"
-          changed=$(git diff --name-only --diff-filter=d "origin/$BASE_REF...HEAD" -- 'Casks/*.rb')
-          added=$(git diff --name-only --diff-filter=A "origin/$BASE_REF...HEAD" -- 'Casks/*.rb')
+          changed=$(git diff --name-only --diff-filter=d "$BASE_SHA" "$HEAD_SHA" -- 'Casks/*.rb')
+          added=$(git diff --name-only --diff-filter=A "$BASE_SHA" "$HEAD_SHA" -- 'Casks/*.rb')
           {
             echo "changed<<EOF"
             echo "$changed"
