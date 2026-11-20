@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   casks:
@@ -15,8 +16,6 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@main
@@ -25,35 +24,40 @@ jobs:
 
       - name: Find changed casks
         id: changed
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          changed=$(git diff --name-only --diff-filter=d "$BASE_SHA" "$HEAD_SHA" -- 'Casks/*.rb')
-          added=$(git diff --name-only --diff-filter=A "$BASE_SHA" "$HEAD_SHA" -- 'Casks/*.rb')
-          {
-            echo "changed<<EOF"
-            echo "$changed"
-            echo "EOF"
-            echo "added<<EOF"
-            echo "$added"
-            echo "EOF"
-          } >> "$GITHUB_OUTPUT"
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              per_page: 100,
+            });
+            const casks = files.filter(({ filename }) => /^Casks\/[^/]+\.rb$/.test(filename));
+            const tokenFor = ({ filename }) => filename.slice("Casks/".length, -".rb".length);
+            const changed = casks
+              .filter(({ status }) => status !== "removed")
+              .map(tokenFor);
+            const added = casks
+              .filter(({ status }) => status === "added")
+              .map(tokenFor);
+            core.setOutput("changed", changed.join("\n"));
+            core.setOutput("added", added.join("\n"));
 
       - name: Style check
         if: steps.changed.outputs.changed != ''
         env:
-          FILES: ${{ steps.changed.outputs.changed }}
-        run: printf '%s\n' "$FILES" | xargs brew style
+          CASKS: ${{ steps.changed.outputs.changed }}
+        run: printf '%s\n' "$CASKS" | xargs brew style
 
       - name: Audit changed casks
         if: steps.changed.outputs.changed != ''
         env:
-          FILES: ${{ steps.changed.outputs.changed }}
-        run: printf '%s\n' "$FILES" | xargs -n1 brew audit --cask --online
+          CASKS: ${{ steps.changed.outputs.changed }}
+        run: printf '%s\n' "$CASKS" | xargs -n1 brew audit --cask --online
 
       - name: Audit new casks
         if: steps.changed.outputs.added != ''
         env:
-          FILES: ${{ steps.changed.outputs.added }}
-        run: printf '%s\n' "$FILES" | xargs -n1 brew audit --cask --new
+          CASKS: ${{ steps.changed.outputs.added }}
+        run: printf '%s\n' "$CASKS" | xargs -n1 brew audit --cask --new
