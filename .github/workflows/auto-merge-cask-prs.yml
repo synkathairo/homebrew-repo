@@ -5,7 +5,7 @@ name: Auto-merge tested cask bump PRs
 # PRs and still fail later while checking another cask.
 on:
   workflow_run:
-    workflows: ["brew test-bot"]
+    workflows: ["brew test-bot", "cask checks"]
     types: [completed]
   workflow_dispatch:
 
