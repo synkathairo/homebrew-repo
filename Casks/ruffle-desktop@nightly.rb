@@ -1,9 +1,9 @@
-cask "ruffle-nightly" do
+cask "ruffle-desktop@nightly" do
   version "2026_11_18"
   sha256 "32cb6595d0ee2fb4b7b29fe46cee0667ab6e818726048e9bc43cab0dfc2b5bb5"
 
   url "https://github.com/ruffle-rs/ruffle/releases/download/nightly-#{version.tr("_", "-")}/ruffle-nightly-#{version}-macos-universal.tar.gz"
-  name "ruffle-nightly"
+  name "Ruffle desktop nightly"
   desc "Open source Flash Player emulator"
   homepage "https://ruffle.rs/"
 
@@ -16,6 +16,7 @@ cask "ruffle-nightly" do
     end
   end
 
+  conflicts_with cask: "ruffle-desktop"
   depends_on :macos
 
   app "Ruffle.app"
