@@ -24,7 +24,7 @@ additional casks:
 - [horizon-launcher](https://playhorizon.dev/)
 - [mpv-player](https://github.com/mpv-player/mpv)
 - [okular-nightly](https://okular.kde.org/download/)
-- [ruffle-nightly](https://ruffle.rs/)
+- [ruffle-desktop](https://ruffle.rs/)
 
 formulas:
 
