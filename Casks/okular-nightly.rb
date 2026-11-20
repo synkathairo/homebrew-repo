@@ -1,7 +1,7 @@
 cask "okular-nightly" do
   arch arm: "arm64", intel: "x86_64"
 
-  sha256 arm:   "f8bdc1c55f69970b02dbb69cfb6a1fa24c82d1381a18c2edd0df61c5dbfe18ca",
+  sha256 arm:   "5a923d3e142949569f5d761b0cea3695850be3ba2cfb4d5e4b8b40ad905c36e6",
          intel: "e08c32d87f72dd54d34a41b277d3d9c64b169cb44d568ceee74fac56dc16cb9b"
 
   on_arm do
