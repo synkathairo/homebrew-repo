@@ -18,9 +18,18 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Set up Homebrew
+        id: set-up-homebrew
         uses: Homebrew/actions/setup-homebrew@main
         with:
           cask: true
+
+      - name: Cache Homebrew Bundler RubyGems
+        uses: actions/cache@v6
+        with:
+          path: ${{ steps.set-up-homebrew.outputs.gems-path }}
+          key: ${{ runner.os }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
+          restore-keys: |
+            ${{ runner.os }}-rubygems-
 
       - name: Find changed casks
         id: changed
